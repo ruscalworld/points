@@ -1,4 +1,4 @@
-package ru.ruscalworld.points.common.core;
+package ru.ruscalworld.points.common.exceptions;
 
 import net.kyori.adventure.text.Component;
 

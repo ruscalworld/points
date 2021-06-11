@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.actions.PlayerPointAction;
-import ru.ruscalworld.points.common.core.ActionException;
+import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.models.Point;
 import ru.ruscalworld.storagelib.Storage;
