@@ -1,0 +1,2 @@
+# Points
+Simple mod/plugin for Spigot and Fabric that allows to set points in the world. Points are also shown on web maps if they are installed. Players can use them to easily share coordinates of interesting places in the world. 
