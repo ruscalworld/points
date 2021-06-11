@@ -1,0 +1,9 @@
+name: Points
+version: @version@
+main: ru.ruscalworld.points.PointsSpigot
+api-version: 1.16
+prefix: Points
+softdepend: [ BlueMap ]
+authors: [ RuscalWorld ]
+description: Plugin that adds ability to set points on the map to allow players to share interesting places easily
+website: https://github.com/ruscalworld/points

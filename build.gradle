@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+    }
+}
+
+group = 'ru.ruscalworld'
+version = '1.0'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    group = project.group
+    version = project.version
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    repositories {
+        maven {
+            name = 'RuscalWorld Releases'
+            url = 'https://maven.ruscalworld.ru/releases'
+            credentials {
+                username = MavenReleasesUsername
+                password = MavenReleasesPassword
+            }
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation "net.kyori:adventure-api:4.8.0"
+        implementation "ru.ruscalworld:storagelib:1.1.5"
+        implementation "com.ibm.icu:icu4j:61.1"
+    }
+}
