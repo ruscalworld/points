@@ -24,10 +24,6 @@ subprojects {
         maven {
             name = 'RuscalWorld Releases'
             url = 'https://maven.ruscalworld.ru/releases'
-            credentials {
-                username = MavenReleasesUsername
-                password = MavenReleasesPassword
-            }
         }
     }
 
