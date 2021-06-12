@@ -4,7 +4,7 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.ruscalworld.points.spigot.commands.DeletePointCommand;
-import ru.ruscalworld.points.spigot.commands.SetPointCommand;
+import ru.ruscalworld.points.spigot.commands.CreatePointCommand;
 import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
 
@@ -20,13 +20,19 @@ public final class PointsSpigot extends JavaPlugin {
 
         PluginCommand setpoint = this.getCommand("setpoint");
         assert setpoint != null;
-        setpoint.setExecutor(new SetPointCommand());
+        setpoint.setExecutor(new CreatePointCommand());
 
         PluginCommand delpoint = this.getCommand("delpoint");
         assert delpoint != null;
         delpoint.setExecutor(new DeletePointCommand());
 
         instance = this;
+    }
+
+    @Override
+    public void onDisable() {
+        this.getAdventure().close();
+        this.setAdventure(null);
     }
 
     public static PointsSpigot getInstance() {

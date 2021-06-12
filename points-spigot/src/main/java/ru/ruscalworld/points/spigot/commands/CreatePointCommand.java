@@ -7,11 +7,11 @@ import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.actions.points.CreatePoint;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
-import ru.ruscalworld.points.spigot.impl.BukkitCommandExecutor;
+import ru.ruscalworld.points.spigot.impl.BukkitPlayer;
 
 import java.util.function.BiConsumer;
 
-public class SetPointCommand extends AsyncCommandExecutor {
+public class CreatePointCommand extends AsyncCommandExecutor {
     @Override
     public void onCommandAsync(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) {
@@ -20,6 +20,6 @@ public class SetPointCommand extends AsyncCommandExecutor {
         }
 
         BiConsumer<Action, CommandExecutor> actionDispatcher = Points.getInstance().getActionDispatcher();
-        actionDispatcher.accept(new CreatePoint(String.join(" ", args)), new BukkitCommandExecutor(sender));
+        actionDispatcher.accept(new CreatePoint(String.join(" ", args)), new BukkitPlayer(sender));
     }
 }

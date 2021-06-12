@@ -1,5 +1,6 @@
 package ru.ruscalworld.points.spigot.impl;
 
+import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.util.Location;
@@ -9,6 +10,10 @@ import java.util.UUID;
 public class BukkitPlayer extends BukkitCommandExecutor implements Player {
     public BukkitPlayer(org.bukkit.entity.Player player) {
         super(player);
+    }
+
+    public BukkitPlayer(CommandSender sender) {
+        super(sender);
     }
 
     @Override

@@ -3,6 +3,7 @@ package ru.ruscalworld.points.spigot.impl;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.spigot.PointsSpigot;
 import ru.ruscalworld.points.common.core.CommandExecutor;
@@ -22,6 +23,11 @@ public class BukkitCommandExecutor implements CommandExecutor {
     @Override
     public boolean hasPermission(String permission) {
         return this.getBukkitExecutor().hasPermission(permission);
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return this.getBukkitExecutor() instanceof Player;
     }
 
     @Override

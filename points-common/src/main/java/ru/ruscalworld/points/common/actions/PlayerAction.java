@@ -8,7 +8,7 @@ import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 public abstract class PlayerAction implements Action {
     @Override
     public final void ensureCanExecute(CommandExecutor executor) throws NotAPlayerException {
-        if (executor instanceof Player) return;
+        if (executor.isPlayer()) return;
         throw new NotAPlayerException();
     }
 }
