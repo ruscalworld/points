@@ -1,5 +1,5 @@
 name: Points
-version: @version@
+version: ${project.version}
 main: ru.ruscalworld.points.PointsSpigot
 api-version: 1.16
 prefix: Points
