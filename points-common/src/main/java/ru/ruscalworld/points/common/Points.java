@@ -1,7 +1,7 @@
 package ru.ruscalworld.points.common;
 
-import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.translation.GlobalTranslator;
+import ru.ruscalworld.points.common.config.MainConfig;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.util.Translator;
@@ -10,6 +10,8 @@ import ru.ruscalworld.storagelib.impl.SQLiteStorage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Properties;
 import java.util.UUID;
@@ -19,10 +21,12 @@ public class Points {
     private static Points instance;
 
     private final Storage storage;
+    private final MainConfig mainConfig;
     private final BiConsumer<Action, CommandExecutor> actionDispatcher;
 
     public Points(Path dataPath, BiConsumer<Action, CommandExecutor> actionDispatcher) {
         this.actionDispatcher = actionDispatcher;
+        this.mainConfig = new MainConfig(dataPath);
 
         // noinspection ResultOfMethodCallIgnored
         dataPath.toFile().mkdirs();
@@ -36,11 +40,12 @@ public class Points {
     public boolean initialize() {
         try {
             this.getStorage().actualizeStorageSchema();
+            this.getMainConfig().load();
 
-            InputStream enLang = this.getClass().getClassLoader().getResourceAsStream("lang/en.properties");
-            Properties messages = new Properties();
-            messages.load(enLang);
-            GlobalTranslator.get().addSource(new Translator(messages, messages));
+            GlobalTranslator.get().addSource(new Translator(
+                    this.getMessages("en"),
+                    this.getMessages(this.getMainConfig().getLanguage())
+            ));
         } catch (Exception exception) {
             exception.printStackTrace();
             return false;
@@ -48,6 +53,19 @@ public class Points {
 
         instance = this;
         return true;
+    }
+
+    protected Properties getMessages(String language) throws IOException {
+        InputStream stream = this.getMessagesStream(language);
+        if (stream == null) stream = this.getMessagesStream("en");
+        InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+        Properties messages = new Properties();
+        messages.load(reader);
+        return messages;
+    }
+
+    protected InputStream getMessagesStream(String language) {
+        return this.getClass().getClassLoader().getResourceAsStream("lang/" + language + ".properties");
     }
 
     public static Points getInstance() {
@@ -60,5 +78,9 @@ public class Points {
 
     public BiConsumer<Action, CommandExecutor> getActionDispatcher() {
         return actionDispatcher;
+    }
+
+    public MainConfig getMainConfig() {
+        return mainConfig;
     }
 }
