@@ -2,6 +2,7 @@ package ru.ruscalworld.points.common.actions;
 
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.exceptions.ActionException;
 
 public abstract class PointAction implements Action {
     private final String slug;
@@ -11,7 +12,7 @@ public abstract class PointAction implements Action {
     }
 
     @Override
-    public void ensureCanExecute(CommandExecutor executor) {
+    public void ensureCanExecute(CommandExecutor executor) throws ActionException {
 
     }
 

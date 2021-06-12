@@ -3,6 +3,8 @@ package ru.ruscalworld.points.common.models;
 import com.ibm.icu.text.Normalizer2;
 import com.ibm.icu.text.Transliterator;
 import org.jetbrains.annotations.NotNull;
+import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.util.Location;
 import ru.ruscalworld.points.common.util.Slug;
 import ru.ruscalworld.storagelib.DefaultModel;
@@ -76,6 +78,15 @@ public class Point extends DefaultModel {
         this.y = location.getY();
         this.z = location.getZ();
         this.world = location.getWorldName();
+    }
+
+    public boolean isOwner(CommandExecutor executor) {
+        if (executor instanceof Player) {
+            Player player = (Player) executor;
+            return player.getUUID().equals(this.getOwnerID());
+        }
+
+        return false;
     }
 
     public @NotNull String getName() {

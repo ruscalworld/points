@@ -1,5 +1,8 @@
 package ru.ruscalworld.points.common.util;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.Style;
+
 public class Location {
     private final int x;
     private final int y;
@@ -27,5 +30,15 @@ public class Location {
 
     public String getWorldName() {
         return worldName;
+    }
+
+    public Component toComponent(Style contrast) {
+        return Component.text(this.getX(), contrast)
+                .append(Component.text(" "))
+                .append(Component.text(this.getY(), contrast))
+                .append(Component.text(" "))
+                .append(Component.text(this.getZ(), contrast))
+                .append(Component.text(" in "))
+                .append(Component.text(this.getWorldName(), contrast));
     }
 }

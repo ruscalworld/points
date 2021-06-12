@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.ruscalworld.points.spigot.commands.DeletePointCommand;
 import ru.ruscalworld.points.spigot.commands.CreatePointCommand;
 import ru.ruscalworld.points.common.Points;
+import ru.ruscalworld.points.spigot.commands.ViewPointCommand;
 import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
 
 public final class PointsSpigot extends JavaPlugin {
@@ -25,6 +26,10 @@ public final class PointsSpigot extends JavaPlugin {
         PluginCommand delpoint = this.getCommand("delpoint");
         assert delpoint != null;
         delpoint.setExecutor(new DeletePointCommand());
+
+        PluginCommand getpoint = this.getCommand("getpoint");
+        assert getpoint != null;
+        getpoint.setExecutor(new ViewPointCommand());
 
         instance = this;
     }
