@@ -8,6 +8,7 @@ import ru.ruscalworld.points.common.actions.points.DeletePoint;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.spigot.impl.BukkitCommandExecutor;
+import ru.ruscalworld.points.spigot.impl.BukkitPlayer;
 
 import java.util.function.BiConsumer;
 
@@ -20,6 +21,6 @@ public class DeletePointCommand extends AsyncCommandExecutor {
         }
 
         BiConsumer<Action, CommandExecutor> actionDispatcher = Points.getInstance().getActionDispatcher();
-        actionDispatcher.accept(new DeletePoint(args[0]), new BukkitCommandExecutor(sender));
+        actionDispatcher.accept(new DeletePoint(args[0]), new BukkitPlayer(sender));
     }
 }

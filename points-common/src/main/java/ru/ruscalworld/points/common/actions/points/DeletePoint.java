@@ -6,8 +6,10 @@ import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.actions.PlayerPointAction;
 import ru.ruscalworld.points.common.actions.PointAction;
 import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Permission;
 import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
@@ -28,6 +30,12 @@ public class DeletePoint extends PointAction {
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new ActionException(Component.text("Unable to find point"));
+        }
+
+
+        if (executor.isPlayer() && !point.getOwnerID().equals(((Player) executor).getUUID())) {
+            // Check for permission to delete others' points only if executor is not player and not owner of this point
+            new Permission("delete.others").ensureHas(executor);
         }
 
         try {

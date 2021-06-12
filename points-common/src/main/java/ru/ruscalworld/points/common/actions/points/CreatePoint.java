@@ -7,7 +7,10 @@ import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.actions.PlayerAction;
 import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.core.Player;
+import ru.ruscalworld.points.common.exceptions.InsufficientPermissionException;
+import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Permission;
 import ru.ruscalworld.storagelib.Storage;
 
 public class CreatePoint extends PlayerAction {
@@ -31,6 +34,12 @@ public class CreatePoint extends PlayerAction {
         }
 
         return Component.text("Point successfully created with slug " + point.getSlug());
+    }
+
+    @Override
+    public void ensureCanExecute(CommandExecutor executor) throws ActionException {
+        super.ensureCanExecute(executor);
+        new Permission("create").ensureHas(executor);
     }
 
     public String getName() {

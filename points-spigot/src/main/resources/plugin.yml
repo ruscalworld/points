@@ -10,5 +10,14 @@ website: https://github.com/ruscalworld/points
 commands:
   setpoint:
     description: Creates a new point
+    permission: points.create
   delpoint:
     description: Deletes a point
+    permission: points.delete
+permissions:
+  points.create:
+    default: true
+  points.delete:
+    default: true
+    children:
+      points.delete.others: false
