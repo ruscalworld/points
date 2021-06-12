@@ -22,6 +22,7 @@ public class Points {
         SQLiteStorage storage = new SQLiteStorage("jdbc:sqlite:" + dataPath.resolve("database.db"));
         storage.registerMigration("points");
         storage.registerConverter(UUID.class, (v) -> UUID.fromString(v.toString()));
+        storage.registerConverter(boolean.class, (v) -> v.equals("true"));
         this.storage = storage;
     }
 
