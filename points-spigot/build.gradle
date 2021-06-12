@@ -20,6 +20,8 @@ dependencies {
 }
 
 processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
     from(sourceSets.main.resources.srcDirs) {
         expand 'version': project.version
     }

@@ -10,6 +10,10 @@ buildscript {
 group = 'ru.ruscalworld'
 version = '1.0'
 
+configurations {
+    compileClasspath
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'

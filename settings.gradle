@@ -10,4 +10,4 @@ pluginManagement {
 
 rootProject.name = 'points'
 
-include 'points-common', 'points-spigot', 'points-fabric'
+include 'points-common', 'points-spigot'
