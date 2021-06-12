@@ -9,7 +9,9 @@ import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Messages;
 import ru.ruscalworld.points.common.util.Permission;
+import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
@@ -26,10 +28,10 @@ public class DeletePoint extends PointAction {
         try {
             point = storage.find(Point.class, "slug", this.getSlug());
         } catch (NotFoundException exception) {
-            throw new ActionException(Component.text("Unable to find point " + exception.getKeyValue()));
+            throw new ActionException(Messages.pointNotFound(exception.getKeyValue().toString()));
         } catch (Exception exception) {
             exception.printStackTrace();
-            throw new ActionException(Component.text("Unable to find point"));
+            throw new ActionException(Messages.unableToRetrieve());
         }
 
 
@@ -42,9 +44,12 @@ public class DeletePoint extends PointAction {
             storage.delete(point);
         } catch (Exception exception) {
             exception.printStackTrace();
-            throw new ActionException(Component.text("Unable to delete point"));
+            throw new ActionException(Component.translatable("errors.point.delete", Styles.main()));
         }
 
-        return Component.text("Point has been successfully deleted");
+        return Component.translatable(
+                "points.delete.success", Styles.main(),
+                Component.text(point.getName(), Styles.contrast())
+        );
     }
 }

@@ -7,15 +7,16 @@ import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.actions.points.CreatePoint;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.util.Messages;
 import ru.ruscalworld.points.spigot.impl.BukkitPlayer;
 
 import java.util.function.BiConsumer;
 
 public class CreatePointCommand extends AsyncCommandExecutor {
     @Override
-    public void onCommandAsync(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void onCommandAsync(@NotNull CommandExecutor executor, @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) {
-            sender.sendMessage("Not enough arguments!");
+            executor.sendMessage(Messages.incorrectUsage(label, "<name>"));
             return;
         }
 

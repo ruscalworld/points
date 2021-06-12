@@ -11,6 +11,7 @@ import ru.ruscalworld.points.common.exceptions.InsufficientPermissionException;
 import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 import ru.ruscalworld.points.common.models.Point;
 import ru.ruscalworld.points.common.util.Permission;
+import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.Storage;
 
 public class CreatePoint extends PlayerAction {
@@ -30,10 +31,15 @@ public class CreatePoint extends PlayerAction {
             storage.save(point);
         } catch (Exception exception) {
             exception.printStackTrace();
-            throw new ActionException(Component.text("Unable to create point"));
+            throw new ActionException(Component.translatable(
+                    "errors.point.create", Styles.main()
+            ));
         }
 
-        return Component.text("Point successfully created with slug " + point.getSlug());
+        return Component.translatable(
+                "point.create.success", Styles.main(),
+                Component.text(point.getSlug(), Styles.contrast())
+        );
     }
 
     @Override

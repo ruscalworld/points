@@ -6,7 +6,7 @@ public class InsufficientPermissionException extends ActionException {
     private final String permission;
 
     public InsufficientPermissionException(String permission) {
-        super(Component.text("You have not enough permissions to do this"));
+        super(Component.translatable("errors.permissions.default"));
         this.permission = permission;
     }
 

@@ -32,13 +32,11 @@ public class Location {
         return worldName;
     }
 
-    public Component toComponent(Style contrast) {
+    public Component getCoordinatesComponent(Style contrast) {
         return Component.text(this.getX(), contrast)
                 .append(Component.text(" "))
                 .append(Component.text(this.getY(), contrast))
                 .append(Component.text(" "))
-                .append(Component.text(this.getZ(), contrast))
-                .append(Component.text(" in "))
-                .append(Component.text(this.getWorldName(), contrast));
+                .append(Component.text(this.getZ(), contrast));
     }
 }

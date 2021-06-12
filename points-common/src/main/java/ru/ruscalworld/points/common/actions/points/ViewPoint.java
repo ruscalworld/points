@@ -9,7 +9,9 @@ import ru.ruscalworld.points.common.actions.PointAction;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Messages;
 import ru.ruscalworld.points.common.util.Permission;
+import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
@@ -26,10 +28,10 @@ public class ViewPoint extends PointAction {
         try {
             point = storage.find(Point.class, "name", this.getSlug());
         } catch (NotFoundException exception) {
-            throw new ActionException(Component.text("Cannot find point " + exception.getKeyValue()));
+            throw new ActionException(Messages.pointNotFound(exception.getKeyValue().toString()));
         } catch (Exception exception) {
             exception.printStackTrace();
-            throw new ActionException(Component.text("Cannot find point"));
+            throw new ActionException(Messages.unableToRetrieve());
         }
 
         if (point.isPrivate() && executor.isPlayer() && !point.isOwner(executor)) {
@@ -37,10 +39,12 @@ public class ViewPoint extends PointAction {
             new Permission("view.private").ensureHas(executor);
         }
 
-        return Component.text("Point ")
-                .append(Component.text(point.getName(), NamedTextColor.GRAY))
-                .append(Component.text(" is located at "))
-                .append(point.getLocation().toComponent(Style.style(NamedTextColor.GRAY)));
+        return Component.translatable(
+                "point.view", Styles.main(),
+                Component.text(point.getName(), Styles.contrast()),
+                point.getLocation().getCoordinatesComponent(Styles.contrast()),
+                Component.text(point.getLocation().getWorldName(), Styles.contrast())
+        );
     }
 
     @Override
