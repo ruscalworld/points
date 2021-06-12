@@ -15,6 +15,10 @@ configurations {
     compileClasspath
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
@@ -24,6 +28,8 @@ subprojects {
 
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
+
+    compileJava.options.encoding = 'UTF-8'
 
     repositories {
         maven {
