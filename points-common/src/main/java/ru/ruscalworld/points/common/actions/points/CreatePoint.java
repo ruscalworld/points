@@ -10,9 +10,11 @@ import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.exceptions.InsufficientPermissionException;
 import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Messages;
 import ru.ruscalworld.points.common.util.Permission;
 import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.Storage;
+import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
 public class CreatePoint extends PlayerAction {
     private final String name;
@@ -26,6 +28,19 @@ public class CreatePoint extends PlayerAction {
         Storage storage = Points.getInstance().getStorage();
         Player player = (Player) executor;
         Point point = new Point(this.getName(), player.getUUID(), player.getLocation());
+        boolean found;
+
+        try {
+            storage.find(Point.class, "slug", point.getSlug());
+            found = true;
+        } catch (NotFoundException exception) {
+            found = false;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw new ActionException(Messages.unableToRetrieve());
+        }
+
+        if (found) throw new ActionException(Component.translatable("errors.point.similar", Styles.main()));
 
         try {
             storage.save(point);

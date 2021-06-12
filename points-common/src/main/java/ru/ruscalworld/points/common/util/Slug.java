@@ -52,7 +52,6 @@ public class Slug {
 
     public static String transliterate(String input) {
         for (String c : TRANSLITERATION_MAP.keySet()) {
-            System.out.println(c + " " + input);
             input = input.replace(c, TRANSLITERATION_MAP.get(c));
         }
 
