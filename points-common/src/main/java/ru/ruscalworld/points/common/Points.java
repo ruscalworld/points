@@ -17,6 +17,8 @@ public class Points {
 
     public Points(Path dataPath, BiConsumer<Action, CommandExecutor> actionDispatcher) {
         this.actionDispatcher = actionDispatcher;
+        // noinspection ResultOfMethodCallIgnored
+        dataPath.toFile().mkdirs();
         SQLiteStorage storage = new SQLiteStorage("jdbc:sqlite:" + dataPath.resolve("database.db"));
         storage.registerMigration("points");
         storage.registerConverter(UUID.class, (v) -> UUID.fromString(v.toString()));
