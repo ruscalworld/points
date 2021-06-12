@@ -1,11 +1,10 @@
-package ru.ruscalworld.points.impl;
+package ru.ruscalworld.points.spigot.impl;
 
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import ru.ruscalworld.points.PointsSpigot;
+import ru.ruscalworld.points.spigot.PointsSpigot;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 
 public class BukkitCommandExecutor implements CommandExecutor {

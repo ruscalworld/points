@@ -1,12 +1,12 @@
-package ru.ruscalworld.points;
+package ru.ruscalworld.points.spigot;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import ru.ruscalworld.points.commands.DeletePointCommand;
-import ru.ruscalworld.points.commands.SetPointCommand;
+import ru.ruscalworld.points.spigot.commands.DeletePointCommand;
+import ru.ruscalworld.points.spigot.commands.SetPointCommand;
 import ru.ruscalworld.points.common.Points;
-import ru.ruscalworld.points.impl.BukkitActionDispatcher;
+import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
 
 public final class PointsSpigot extends JavaPlugin {
     private static PointsSpigot instance;

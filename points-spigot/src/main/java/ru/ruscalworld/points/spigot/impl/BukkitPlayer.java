@@ -1,4 +1,4 @@
-package ru.ruscalworld.points.impl;
+package ru.ruscalworld.points.spigot.impl;
 
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.core.Player;

@@ -2,11 +2,18 @@ plugins {
     id 'com.github.johnrengelman.shadow'
 }
 
+configurations {
+    implementation {
+        canBeResolved = true
+    }
+}
+
 repositories {
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
+
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
@@ -14,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly project(':points-common')
+    implementation project(':points-common')
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     implementation 'net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT'
 }
@@ -29,7 +36,10 @@ processResources {
 
 shadowJar {
     dependencies {
-        include(dependency(':points-common'))
+        include(dependency(":points-common"))
+        include(dependency("ru.ruscalworld:storagelib"))
+        include(dependency("com.ibm.icu:icu4j"))
+        include(dependency("net.kyori:.*"))
     }
 }
 

@@ -8,7 +8,6 @@ import ru.ruscalworld.storagelib.impl.SQLiteStorage;
 import java.nio.file.Path;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class Points {
     private static Points instance;

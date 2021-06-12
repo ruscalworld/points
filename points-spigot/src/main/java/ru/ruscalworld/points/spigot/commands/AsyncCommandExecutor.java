@@ -1,4 +1,4 @@
-package ru.ruscalworld.points.commands;
+package ru.ruscalworld.points.spigot.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,4 +1,4 @@
-package ru.ruscalworld.points.impl;
+package ru.ruscalworld.points.spigot.impl;
 
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;

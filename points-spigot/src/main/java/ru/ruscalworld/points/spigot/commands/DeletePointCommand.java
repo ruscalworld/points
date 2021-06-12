@@ -1,14 +1,13 @@
-package ru.ruscalworld.points.commands;
+package ru.ruscalworld.points.spigot.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.Points;
-import ru.ruscalworld.points.common.actions.points.CreatePoint;
 import ru.ruscalworld.points.common.actions.points.DeletePoint;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
-import ru.ruscalworld.points.impl.BukkitCommandExecutor;
+import ru.ruscalworld.points.spigot.impl.BukkitCommandExecutor;
 
 import java.util.function.BiConsumer;
 
