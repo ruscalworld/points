@@ -4,6 +4,7 @@ import com.ibm.icu.text.Normalizer2;
 import com.ibm.icu.text.Transliterator;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.util.Location;
+import ru.ruscalworld.points.common.util.Slug;
 import ru.ruscalworld.storagelib.DefaultModel;
 import ru.ruscalworld.storagelib.annotations.DefaultGenerated;
 import ru.ruscalworld.storagelib.annotations.Model;
@@ -56,12 +57,8 @@ public class Point extends DefaultModel {
     }
 
     public Point(@NotNull String name, @NotNull UUID ownerID, @NotNull Location location) {
-        Transliterator transliterator = Transliterator.getInstance("Latin-Russian/BGN");
-        String slug = transliterator.transliterate(this.getName());
-        slug = Normalizer2.getNFCInstance().normalize(slug);
-
         this.name = name;
-        this.slug = slug;
+        this.slug = Slug.make(this.getName());
         this.ownerID = ownerID;
         this.x = location.getX();
         this.y = location.getY();
