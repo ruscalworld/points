@@ -12,6 +12,7 @@ import ru.ruscalworld.points.spigot.impl.BukkitPlayer;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -39,6 +40,7 @@ public class PointsTabCompleter implements TabCompleter {
                 if (args.length > 1) return new ArrayList<>();
                 return this.getPublicAndOwned(String.join(" ", args), player);
             case "point":
+                if (args.length == 4) return Arrays.asList("true", "false");
                 if (args.length != 2) return null;
                 return this.getOwned(args[1], player, false);
         }

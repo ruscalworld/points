@@ -1,0 +1,18 @@
+point {
+    hide {
+        point brigadier:string single_word;
+    }
+    show {
+        point brigadier:string single_word;
+    }
+    set {
+        point brigadier:string single_word {
+            hidden {
+                hidden brigadier:bool;
+            }
+            private {
+                private brigadier:bool;
+            }
+        }
+    }
+}
