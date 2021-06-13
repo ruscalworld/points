@@ -24,6 +24,11 @@ public class CreatePoint implements Action {
 
     @Override
     public @Nullable Component execute(CommandExecutor executor) throws ActionException {
+        if (this.getName().length() > 50) throw new ActionException(Component.translatable(
+                "errors.point.name.long", Styles.main(),
+                Component.text(50, Styles.contrast())
+        ));
+
         Storage storage = Points.getInstance().getStorage();
         Player player = (Player) executor;
         Point point = new Point(this.getName(), player.getUUID(), player.getLocation());
