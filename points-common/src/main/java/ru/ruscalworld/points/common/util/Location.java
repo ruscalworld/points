@@ -1,5 +1,6 @@
 package ru.ruscalworld.points.common.util;
 
+import com.flowpowered.math.vector.Vector3d;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 
@@ -30,6 +31,10 @@ public class Location {
 
     public String getWorldName() {
         return worldName;
+    }
+
+    public Vector3d getLocation() {
+        return new Vector3d(x, y, z);
     }
 
     public Component getCoordinatesComponent(Style contrast) {

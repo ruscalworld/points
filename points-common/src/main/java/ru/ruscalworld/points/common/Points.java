@@ -1,9 +1,13 @@
 package ru.ruscalworld.points.common;
 
+import de.bluecolored.bluemap.api.BlueMapAPI;
 import net.kyori.adventure.translation.GlobalTranslator;
 import ru.ruscalworld.points.common.config.MainConfig;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.core.WorldMap;
+import ru.ruscalworld.points.common.maps.BlueMap;
+import ru.ruscalworld.points.common.maps.NullWorldMap;
 import ru.ruscalworld.points.common.util.Translator;
 import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.impl.SQLiteStorage;
@@ -20,6 +24,7 @@ import java.util.function.BiConsumer;
 public class Points {
     private static Points instance;
 
+    private WorldMap worldMap;
     private final Storage storage;
     private final MainConfig mainConfig;
     private final BiConsumer<Action, CommandExecutor> actionDispatcher;
@@ -46,6 +51,10 @@ public class Points {
                     this.getMessages("en"),
                     this.getMessages(this.getMainConfig().getLanguage())
             ));
+
+            this.setWorldMap(new NullWorldMap());
+            BlueMapAPI.onEnable(api -> this.setWorldMap(new BlueMap()));
+            BlueMapAPI.onDisable(api -> this.setWorldMap(new NullWorldMap()));
         } catch (Exception exception) {
             exception.printStackTrace();
             return false;
@@ -82,5 +91,13 @@ public class Points {
 
     public MainConfig getMainConfig() {
         return mainConfig;
+    }
+
+    public WorldMap getWorldMap() {
+        return worldMap;
+    }
+
+    public void setWorldMap(WorldMap worldMap) {
+        this.worldMap = worldMap;
     }
 }

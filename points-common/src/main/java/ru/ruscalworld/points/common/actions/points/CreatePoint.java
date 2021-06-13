@@ -48,6 +48,7 @@ public class CreatePoint implements Action {
 
         try {
             storage.save(point);
+            point.createMarker();
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new ActionException(Component.translatable(

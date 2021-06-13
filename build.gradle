@@ -32,19 +32,17 @@ subprojects {
     compileJava.options.encoding = 'UTF-8'
 
     repositories {
+        mavenCentral()
         maven {
             name = 'RuscalWorld Releases'
             url = 'https://maven.ruscalworld.ru/releases'
         }
-    }
-
-    repositories {
-        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
         implementation "net.kyori:adventure-api:4.8.0"
         implementation "ru.ruscalworld:storagelib:1.1.7"
-        implementation "com.ibm.icu:icu4j:61.1"
+        implementation 'com.github.BlueMap-Minecraft:BlueMapAPI:v1.6.0'
     }
 }

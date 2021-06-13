@@ -1,10 +1,10 @@
 package ru.ruscalworld.points.common.models;
 
-import com.ibm.icu.text.Normalizer2;
-import com.ibm.icu.text.Transliterator;
 import org.jetbrains.annotations.NotNull;
+import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.core.Player;
+import ru.ruscalworld.points.common.core.WorldMap;
 import ru.ruscalworld.points.common.util.Location;
 import ru.ruscalworld.points.common.util.Slug;
 import ru.ruscalworld.storagelib.DefaultModel;
@@ -89,6 +89,25 @@ public class Point extends DefaultModel {
         return false;
     }
 
+    public void createMarker() {
+        // TODO: Check if private
+        //if (this.isPrivate()) return;
+        WorldMap worldMap = Points.getInstance().getWorldMap();
+        worldMap.addMarker(this);
+    }
+
+    public void updateMarker() {
+        // TODO: Check if private
+        //if (this.isPrivate()) return;
+        WorldMap map = Points.getInstance().getWorldMap();
+        map.updateMarker(this);
+    }
+
+    public void deleteMarker() {
+        WorldMap map = Points.getInstance().getWorldMap();
+        map.removeMarker(this);
+    }
+
     public @NotNull String getName() {
         return name;
     }
@@ -119,5 +138,9 @@ public class Point extends DefaultModel {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
+    }
+
+    public @NotNull Timestamp getCreatedAt() {
+        return createdAt;
     }
 }
