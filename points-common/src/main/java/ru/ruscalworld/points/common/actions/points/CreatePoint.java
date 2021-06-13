@@ -9,6 +9,7 @@ import ru.ruscalworld.points.common.core.Player;
 import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Components;
 import ru.ruscalworld.points.common.util.Messages;
 import ru.ruscalworld.points.common.util.Permission;
 import ru.ruscalworld.points.common.util.Styles;
@@ -58,7 +59,17 @@ public class CreatePoint implements Action {
 
         return Component.translatable(
                 "point.create.success", Styles.main(),
-                Component.text(point.getSlug(), Styles.contrast())
+                Component.text(point.getSlug(), Styles.contrast()),
+                Components.button(
+                        Component.translatable("interactions.make-private"),
+                        Component.translatable("hint.private"),
+                        "/point set " + point.getSlug() + " private true"
+                ),
+                Components.button(
+                        Component.translatable("interactions.make-visible"),
+                        Component.translatable("hint.visible"),
+                        "/point set " + point.getSlug() + " hidden false"
+                )
         );
     }
 
