@@ -1,5 +1,6 @@
 package ru.ruscalworld.points.common.actions;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
@@ -20,9 +21,9 @@ public abstract class PointAction implements Action {
         this.input = input;
     }
 
-    protected PointAction(String input) {
+    protected PointAction(String slug) {
         this.inputType = InputType.SLUG;
-        this.input = input;
+        this.input = slug;
     }
 
     @Override
@@ -30,7 +31,7 @@ public abstract class PointAction implements Action {
         this.ensureCanView(executor);
     }
 
-    public void ensureCanView(CommandExecutor executor) throws ActionException {
+    public final void ensureCanView(CommandExecutor executor) throws ActionException {
         new Permission("view").ensureHas(executor);
 
         Point point = this.getPoint();
@@ -39,7 +40,7 @@ public abstract class PointAction implements Action {
         }
     }
 
-    public void ensureCanManage(CommandExecutor executor) throws ActionException {
+    public final void ensureCanManage(CommandExecutor executor) throws ActionException {
         new Permission("manage").ensureHas(executor);
 
         Point point = this.getPoint();
@@ -48,21 +49,21 @@ public abstract class PointAction implements Action {
         }
     }
 
-    public Point getPoint() throws ActionException {
+    public @NotNull Point getPoint() throws ActionException {
         if (this.getInputType() == InputType.NAME) {
             return this.getPointByName();
         } else return this.getPointBySlug();
     }
 
-    private Point getPointBySlug() throws ActionException {
+    private @NotNull Point getPointBySlug() throws ActionException {
         return this.getPoint("slug");
     }
 
-    private Point getPointByName() throws ActionException {
+    private @NotNull Point getPointByName() throws ActionException {
         return this.getPoint("name");
     }
 
-    private Point getPoint(String field) throws ActionException {
+    private @NotNull Point getPoint(String field) throws ActionException {
         if (this.point != null) return point;
         Storage storage = Points.getInstance().getStorage();
 

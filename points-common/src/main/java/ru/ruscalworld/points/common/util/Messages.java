@@ -13,9 +13,11 @@ public class Messages {
     }
 
     public static Component unableToRetrieve() {
-        return Component.translatable(
-                "errors.point.unknown", Styles.main()
-        );
+        return Component.translatable("errors.point.unknown", Styles.main());
+    }
+
+    public static Component unableToUpdate() {
+        return Component.translatable("errors.point.update", Styles.main());
     }
 
     public static Component incorrectUsage(String name, String args) {

@@ -40,7 +40,6 @@ public class BlueMap implements WorldMap {
         try {
             MarkerAPI markerAPI = this.getBlueMapAPI().getMarkerAPI();
             MarkerSet points = this.getMarkerSet(markerAPI);
-            System.out.println(points.getLabel());
 
             Location location = point.getLocation();
             Optional<BlueMapMap> map = this.getBlueMapAPI().getMap(location.getWorldName());
@@ -48,7 +47,6 @@ public class BlueMap implements WorldMap {
 
             POIMarker poiMarker = points.createPOIMarker(point.getSlug(), map.get(), location.getLocation());
             poiMarker.setLabel(point.getName());
-            System.out.println(poiMarker.getId());
             markerAPI.save();
         } catch (IOException e) {
             e.printStackTrace();

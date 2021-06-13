@@ -3,11 +3,16 @@ version: ${project.version}
 main: ru.ruscalworld.points.spigot.PointsSpigot
 api-version: 1.16
 prefix: Points
-softdepend: [ BlueMap ]
-authors: [ RuscalWorld ]
+softdepend:
+  - BlueMap
+authors:
+  - RuscalWorld
 description: Plugin that adds ability to set points on the map to allow players to share interesting places easily
 website: https://github.com/ruscalworld/points
 commands:
+  point:
+    description: Main command
+    permission: points.manage
   setpoint:
     description: Creates a new point
     permission: points.create
@@ -31,4 +36,8 @@ permissions:
   points.view:
     default: true
   points.view.private:
+    default: op
+  points.manage:
+    default: true
+  points.manage.others:
     default: op

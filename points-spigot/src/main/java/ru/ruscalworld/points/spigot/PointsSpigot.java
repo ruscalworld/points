@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.ruscalworld.points.spigot.commands.DeletePointCommand;
 import ru.ruscalworld.points.spigot.commands.CreatePointCommand;
 import ru.ruscalworld.points.common.Points;
+import ru.ruscalworld.points.spigot.commands.PointCommand;
 import ru.ruscalworld.points.spigot.commands.ViewPointCommand;
 import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
 
@@ -18,6 +19,10 @@ public final class PointsSpigot extends JavaPlugin {
         this.setAdventure(BukkitAudiences.create(this));
         Points points = new Points(this.getDataFolder().toPath(), new BukkitActionDispatcher());
         if (!points.initialize()) this.setEnabled(false);
+
+        PluginCommand point = this.getCommand("point");
+        assert point != null;
+        point.setExecutor(new PointCommand());
 
         PluginCommand setpoint = this.getCommand("setpoint");
         assert setpoint != null;

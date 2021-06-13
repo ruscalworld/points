@@ -45,7 +45,7 @@ public class Point extends DefaultModel {
     @Property(column = "hidden")
     private boolean isHidden;
 
-    @Property(column = "createdAt")
+    @Property(column = "created_at")
     @DefaultGenerated
     @NotNull
     private final Timestamp createdAt;
@@ -65,6 +65,8 @@ public class Point extends DefaultModel {
         this.x = location.getX();
         this.y = location.getY();
         this.z = location.getZ();
+        this.isHidden = true;
+        this.isPrivate = false;
         this.world = location.getWorldName();
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
@@ -90,15 +92,17 @@ public class Point extends DefaultModel {
     }
 
     public void createMarker() {
-        // TODO: Check if private
-        //if (this.isPrivate()) return;
+        if (this.isHidden()) return;
         WorldMap worldMap = Points.getInstance().getWorldMap();
         worldMap.addMarker(this);
     }
 
     public void updateMarker() {
-        // TODO: Check if private
-        //if (this.isPrivate()) return;
+        if (this.isHidden()) {
+            this.deleteMarker();
+            return;
+        }
+
         WorldMap map = Points.getInstance().getWorldMap();
         map.updateMarker(this);
     }
@@ -129,7 +133,8 @@ public class Point extends DefaultModel {
     }
 
     public void setPrivate(boolean aPrivate) {
-        isPrivate = aPrivate;
+        if (aPrivate) this.isHidden = true;
+        this.isPrivate = aPrivate;
     }
 
     public boolean isHidden() {
