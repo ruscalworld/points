@@ -38,6 +38,7 @@ shadowJar {
     dependencies {
         include(dependency(":points-common"))
         include(dependency("ru.ruscalworld:storagelib"))
+        include(dependency("com.github.BlueMap-Minecraft:BlueMapAPI"))
         include(dependency("net.kyori:.*"))
     }
 }
