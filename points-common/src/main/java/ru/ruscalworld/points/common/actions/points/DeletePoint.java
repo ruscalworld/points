@@ -32,6 +32,7 @@ public class DeletePoint extends PointAction {
 
         try {
             storage.delete(point);
+            point.deleteMarker();
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new ActionException(Component.translatable("errors.point.delete", Styles.main()));
