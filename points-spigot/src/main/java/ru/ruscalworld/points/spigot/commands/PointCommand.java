@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.Points;
+import ru.ruscalworld.points.common.actions.points.ChangePointPrivacy;
 import ru.ruscalworld.points.common.actions.points.ChangePointVisibility;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
@@ -42,9 +43,8 @@ public class PointCommand extends AsyncCommandExecutor {
                         else actionDispatcher.accept(new ChangePointVisibility(args[1], args[3].equals("true")), executor);
                         break;
                     case "private":
-                        // TODO: Private points
                         if (args.length < 4) usageError(label, "set <point> private <true/false>", executor);
-                        else actionDispatcher.accept(new ChangePointVisibility(args[1], args[3].equals("true")), executor);
+                        else actionDispatcher.accept(new ChangePointPrivacy(args[1], args[3].equals("true")), executor);
                         break;
                     default:
                         usageError(label, "set <point> <args...>", executor);
