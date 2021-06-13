@@ -1,13 +1,24 @@
 package ru.ruscalworld.points.common.actions;
 
-public abstract class PlayerPointAction extends PlayerAction {
+import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.exceptions.ActionException;
+import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
+
+public abstract class PlayerPointAction extends PointAction {
     private final String slug;
 
     protected PlayerPointAction(String slug) {
+        super(slug);
         this.slug = slug;
     }
 
-    public String getSlug() {
+    @Override
+    public void ensureCanExecute(CommandExecutor executor) throws ActionException {
+        if (executor.isPlayer()) return;
+        throw new NotAPlayerException();
+    }
+
+    public String getInput() {
         return slug;
     }
 }

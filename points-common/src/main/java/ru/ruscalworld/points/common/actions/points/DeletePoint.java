@@ -16,27 +16,17 @@ import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
 public class DeletePoint extends PointAction {
-    public DeletePoint(String slug) {
-        super(slug);
+    public DeletePoint(String name) {
+        super(name, InputType.NAME);
     }
 
     @Override
     public @Nullable Component execute(CommandExecutor executor) throws ActionException {
         Storage storage = Points.getInstance().getStorage();
-        Point point;
+        Point point = this.getPoint();
 
-        try {
-            point = storage.find(Point.class, "slug", this.getSlug());
-        } catch (NotFoundException exception) {
-            throw new ActionException(Messages.pointNotFound(exception.getKeyValue().toString()));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw new ActionException(Messages.unableToRetrieve());
-        }
-
-
-        if (executor.isPlayer() && !point.getOwnerID().equals(((Player) executor).getUUID())) {
-            // Check for permission to delete others' points only if executor is not player and not owner of this point
+        if (!point.isOwner(executor)) {
+            // Check for permission to delete others' points only if executor is not owner of this point
             new Permission("delete.others").ensureHas(executor);
         }
 

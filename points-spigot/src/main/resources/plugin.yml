@@ -26,9 +26,9 @@ permissions:
     default: true
   points.delete:
     default: true
-    children:
-      points.delete.others: false
+  points.delete.others:
+    default: op
   points.view:
     default: true
-    children:
-      points.view.private: false
+  points.view.private:
+    default: op

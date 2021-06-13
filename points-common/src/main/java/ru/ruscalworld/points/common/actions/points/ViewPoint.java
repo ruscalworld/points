@@ -16,28 +16,13 @@ import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
 public class ViewPoint extends PointAction {
-    public ViewPoint(String slug) {
-        super(slug);
+    public ViewPoint(String name) {
+        super(name, InputType.NAME);
     }
 
     @Override
     public @Nullable Component execute(CommandExecutor executor) throws ActionException {
-        Storage storage = Points.getInstance().getStorage();
-        Point point;
-
-        try {
-            point = storage.find(Point.class, "name", this.getSlug());
-        } catch (NotFoundException exception) {
-            throw new ActionException(Messages.pointNotFound(exception.getKeyValue().toString()));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw new ActionException(Messages.unableToRetrieve());
-        }
-
-        if (point.isPrivate() && executor.isPlayer() && !point.isOwner(executor)) {
-            // Check if executor has permission to view this point only if it is private
-            new Permission("view.private").ensureHas(executor);
-        }
+        Point point = this.getPoint();
 
         return Component.translatable(
                 "point.view", Styles.main(),
@@ -45,11 +30,5 @@ public class ViewPoint extends PointAction {
                 point.getLocation().getCoordinatesComponent(Styles.contrast()),
                 Component.text(point.getLocation().getWorldName(), Styles.contrast())
         );
-    }
-
-    @Override
-    public void ensureCanExecute(CommandExecutor executor) throws ActionException {
-        super.ensureCanExecute(executor);
-        new Permission("view").ensureHas(executor);
     }
 }

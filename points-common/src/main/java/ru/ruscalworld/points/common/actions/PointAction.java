@@ -1,22 +1,96 @@
 package ru.ruscalworld.points.common.actions;
 
+import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.exceptions.ActionException;
+import ru.ruscalworld.points.common.models.Point;
+import ru.ruscalworld.points.common.util.Messages;
+import ru.ruscalworld.points.common.util.Permission;
+import ru.ruscalworld.storagelib.Storage;
+import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
 public abstract class PointAction implements Action {
-    private final String slug;
+    private final InputType inputType;
+    private final String input;
+    private Point point;
 
-    protected PointAction(String slug) {
-        this.slug = slug;
+    protected PointAction(String input, InputType inputType) {
+        this.inputType = inputType;
+        this.input = input;
+    }
+
+    protected PointAction(String input) {
+        this.inputType = InputType.SLUG;
+        this.input = input;
     }
 
     @Override
     public void ensureCanExecute(CommandExecutor executor) throws ActionException {
-
+        this.ensureCanView(executor);
     }
 
-    public String getSlug() {
-        return slug;
+    public void ensureCanView(CommandExecutor executor) throws ActionException {
+        new Permission("view").ensureHas(executor);
+
+        Point point = this.getPoint();
+        if (point.isPrivate() && !point.isOwner(executor)) {
+            new Permission("view.private").ensureHas(executor);
+        }
+    }
+
+    public void ensureCanManage(CommandExecutor executor) throws ActionException {
+        new Permission("manage").ensureHas(executor);
+
+        Point point = this.getPoint();
+        if (!point.isOwner(executor)) {
+            new Permission("manage.others").ensureHas(executor);
+        }
+    }
+
+    public Point getPoint() throws ActionException {
+        if (this.getInputType() == InputType.NAME) {
+            return this.getPointByName();
+        } else return this.getPointBySlug();
+    }
+
+    private Point getPointBySlug() throws ActionException {
+        return this.getPoint("slug");
+    }
+
+    private Point getPointByName() throws ActionException {
+        return this.getPoint("name");
+    }
+
+    private Point getPoint(String field) throws ActionException {
+        if (this.point != null) return point;
+        Storage storage = Points.getInstance().getStorage();
+
+        try {
+            Point point = storage.find(Point.class, field, this.getInput());
+            this.setPoint(point);
+            return point;
+        } catch (NotFoundException exception) {
+            throw new ActionException(Messages.pointNotFound(exception.getKeyValue().toString()));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw new ActionException(Messages.unableToRetrieve());
+        }
+    }
+
+    protected void setPoint(Point point) {
+        this.point = point;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public InputType getInputType() {
+        return inputType;
+    }
+
+    public enum InputType {
+        SLUG, NAME
     }
 }

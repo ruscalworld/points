@@ -22,6 +22,6 @@ public class DeletePointCommand extends AsyncCommandExecutor {
         }
 
         BiConsumer<Action, CommandExecutor> actionDispatcher = Points.getInstance().getActionDispatcher();
-        actionDispatcher.accept(new DeletePoint(args[0]), new BukkitPlayer(sender));
+        actionDispatcher.accept(new DeletePoint(args[0]), executor);
     }
 }

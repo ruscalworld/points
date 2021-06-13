@@ -21,6 +21,6 @@ public class CreatePointCommand extends AsyncCommandExecutor {
         }
 
         BiConsumer<Action, CommandExecutor> actionDispatcher = Points.getInstance().getActionDispatcher();
-        actionDispatcher.accept(new CreatePoint(String.join(" ", args)), new BukkitPlayer(sender));
+        actionDispatcher.accept(new CreatePoint(String.join(" ", args)), executor);
     }
 }

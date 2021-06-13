@@ -2,12 +2,11 @@ package ru.ruscalworld.points.common.actions.points;
 
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
-import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.Points;
-import ru.ruscalworld.points.common.actions.PlayerAction;
-import ru.ruscalworld.points.common.exceptions.ActionException;
+import ru.ruscalworld.points.common.core.Action;
+import ru.ruscalworld.points.common.core.CommandExecutor;
 import ru.ruscalworld.points.common.core.Player;
-import ru.ruscalworld.points.common.exceptions.InsufficientPermissionException;
+import ru.ruscalworld.points.common.exceptions.ActionException;
 import ru.ruscalworld.points.common.exceptions.NotAPlayerException;
 import ru.ruscalworld.points.common.models.Point;
 import ru.ruscalworld.points.common.util.Messages;
@@ -16,7 +15,7 @@ import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.Storage;
 import ru.ruscalworld.storagelib.exceptions.NotFoundException;
 
-public class CreatePoint extends PlayerAction {
+public class CreatePoint implements Action {
     private final String name;
 
     public CreatePoint(String name) {
@@ -59,8 +58,9 @@ public class CreatePoint extends PlayerAction {
 
     @Override
     public void ensureCanExecute(CommandExecutor executor) throws ActionException {
-        super.ensureCanExecute(executor);
         new Permission("create").ensureHas(executor);
+        if (executor instanceof Player) return;
+        throw new NotAPlayerException();
     }
 
     public String getName() {

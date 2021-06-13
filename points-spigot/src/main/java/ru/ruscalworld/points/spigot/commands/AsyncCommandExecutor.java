@@ -14,7 +14,11 @@ public abstract class AsyncCommandExecutor implements org.bukkit.command.Command
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         CommandExecutor executor = sender instanceof Player ? new BukkitPlayer(sender) : new BukkitCommandExecutor(sender);
-        CompletableFuture.runAsync(() -> this.onCommandAsync(executor, sender, command, label, args));
+        CompletableFuture.runAsync(() -> this.onCommandAsync(executor, sender, command, label, args)).exceptionally(ex -> {
+            ex.printStackTrace();
+            return null;
+        });
+
         return true;
     }
 

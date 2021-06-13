@@ -21,6 +21,6 @@ public class ViewPointCommand extends AsyncCommandExecutor {
         }
 
         BiConsumer<Action, CommandExecutor> actionDispatcher = Points.getInstance().getActionDispatcher();
-        actionDispatcher.accept(new ViewPoint(String.join(" ", args)), new BukkitPlayer(sender));
+        actionDispatcher.accept(new ViewPoint(String.join(" ", args)), executor);
     }
 }
