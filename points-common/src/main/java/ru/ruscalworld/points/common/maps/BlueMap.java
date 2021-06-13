@@ -26,7 +26,6 @@ public class BlueMap implements WorldMap {
             MarkerAPI markerAPI = this.getBlueMapAPI().getMarkerAPI();
             MarkerSet points = this.getMarkerSet(markerAPI);
             deleted = points.removeMarker(point.getSlug());
-            System.out.println(true);
             markerAPI.save();
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,6 +40,7 @@ public class BlueMap implements WorldMap {
         try {
             MarkerAPI markerAPI = this.getBlueMapAPI().getMarkerAPI();
             MarkerSet points = this.getMarkerSet(markerAPI);
+            System.out.println(points.getLabel());
 
             Location location = point.getLocation();
             Optional<BlueMapMap> map = this.getBlueMapAPI().getMap(location.getWorldName());
@@ -48,6 +48,7 @@ public class BlueMap implements WorldMap {
 
             POIMarker poiMarker = points.createPOIMarker(point.getSlug(), map.get(), location.getLocation());
             poiMarker.setLabel(point.getName());
+            System.out.println(poiMarker.getId());
             markerAPI.save();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,8 +59,12 @@ public class BlueMap implements WorldMap {
     }
 
     private MarkerSet getMarkerSet(MarkerAPI markerAPI) throws IOException {
-        Optional<MarkerSet> set = markerAPI.getMarkerSet("Points");
-        return set.orElseGet(() -> markerAPI.createMarkerSet("Points"));
+        Optional<MarkerSet> set = markerAPI.getMarkerSet("points");
+        return set.orElseGet(() -> {
+            MarkerSet points = markerAPI.createMarkerSet("points");
+            points.setLabel("Points");
+            return points;
+        });
     }
 
     private BlueMapAPI getBlueMapAPI() {

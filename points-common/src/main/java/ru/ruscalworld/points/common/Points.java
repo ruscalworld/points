@@ -53,8 +53,10 @@ public class Points {
             ));
 
             this.setWorldMap(new NullWorldMap());
-            BlueMapAPI.onEnable(api -> this.setWorldMap(new BlueMap()));
-            BlueMapAPI.onDisable(api -> this.setWorldMap(new NullWorldMap()));
+            try {
+                BlueMapAPI.onEnable(api -> this.setWorldMap(new BlueMap()));
+                BlueMapAPI.onDisable(api -> this.setWorldMap(new NullWorldMap()));
+            } catch (NoClassDefFoundError ignored) { }
         } catch (Exception exception) {
             exception.printStackTrace();
             return false;
