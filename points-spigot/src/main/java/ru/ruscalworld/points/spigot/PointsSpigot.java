@@ -3,11 +3,8 @@ package ru.ruscalworld.points.spigot;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import ru.ruscalworld.points.spigot.commands.DeletePointCommand;
-import ru.ruscalworld.points.spigot.commands.CreatePointCommand;
+import ru.ruscalworld.points.spigot.commands.*;
 import ru.ruscalworld.points.common.Points;
-import ru.ruscalworld.points.spigot.commands.PointCommand;
-import ru.ruscalworld.points.spigot.commands.ViewPointCommand;
 import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
 
 public final class PointsSpigot extends JavaPlugin {
@@ -23,18 +20,22 @@ public final class PointsSpigot extends JavaPlugin {
         PluginCommand point = this.getCommand("point");
         assert point != null;
         point.setExecutor(new PointCommand());
+        point.setTabCompleter(new PointsTabCompleter());
 
         PluginCommand setpoint = this.getCommand("setpoint");
         assert setpoint != null;
         setpoint.setExecutor(new CreatePointCommand());
+        setpoint.setTabCompleter(new PointsTabCompleter());
 
         PluginCommand delpoint = this.getCommand("delpoint");
         assert delpoint != null;
         delpoint.setExecutor(new DeletePointCommand());
+        delpoint.setTabCompleter(new PointsTabCompleter());
 
         PluginCommand getpoint = this.getCommand("getpoint");
         assert getpoint != null;
         getpoint.setExecutor(new ViewPointCommand());
+        getpoint.setTabCompleter(new PointsTabCompleter());
 
         instance = this;
     }
