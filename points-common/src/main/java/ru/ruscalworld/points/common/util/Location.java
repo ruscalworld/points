@@ -17,6 +17,16 @@ public class Location {
         this.worldName = worldName;
     }
 
+    public double getDistance(Location location) {
+        int x1 = this.getX();
+        int x2 = location.getX();
+        int y1 = this.getY();
+        int y2 = location.getY();
+        int z1 = this.getZ();
+        int z2 = location.getZ();
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
+    }
+
     public int getX() {
         return x;
     }

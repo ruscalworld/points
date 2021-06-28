@@ -26,6 +26,12 @@ commands:
       - where
       - whereis
       - где
+  nearby:
+    description: Shows list of points near you
+    permission: points.nearby
+    aliases:
+      - whereami
+      - гдея
 permissions:
   points.create:
     default: true
@@ -41,3 +47,5 @@ permissions:
     default: true
   points.manage.others:
     default: op
+  points.nearby:
+    default: true

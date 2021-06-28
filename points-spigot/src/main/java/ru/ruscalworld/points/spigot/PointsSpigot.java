@@ -42,6 +42,11 @@ public final class PointsSpigot extends JavaPlugin {
         getpoint.setExecutor(new ViewPointCommand());
         getpoint.setTabCompleter(new PointsTabCompleter());
 
+        PluginCommand nearby = this.getCommand("nearby");
+        assert nearby != null;
+        nearby.setExecutor(new NearbyCommand());
+        nearby.setTabCompleter(new PointsTabCompleter());
+
         if (CommodoreProvider.isSupported()) {
             Commodore commodore = CommodoreProvider.getCommodore(this);
 
