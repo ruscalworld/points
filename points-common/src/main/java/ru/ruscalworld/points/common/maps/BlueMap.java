@@ -5,6 +5,7 @@ import de.bluecolored.bluemap.api.BlueMapMap;
 import de.bluecolored.bluemap.api.marker.MarkerAPI;
 import de.bluecolored.bluemap.api.marker.MarkerSet;
 import de.bluecolored.bluemap.api.marker.POIMarker;
+import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.common.core.WorldMap;
 import ru.ruscalworld.points.common.models.Point;
 import ru.ruscalworld.points.common.util.Location;
@@ -42,7 +43,8 @@ public class BlueMap implements WorldMap {
             MarkerSet points = this.getMarkerSet(markerAPI);
 
             Location location = point.getLocation();
-            Optional<BlueMapMap> map = this.getBlueMapAPI().getMap(location.getWorldName());
+            String mapName = Points.getInstance().getMainConfig().getMapName(location.getWorldName());
+            Optional<BlueMapMap> map = this.getBlueMapAPI().getMap(mapName);
             if (!map.isPresent()) return false;
 
             POIMarker poiMarker = points.createPOIMarker(point.getSlug(), map.get(), location.getLocation());

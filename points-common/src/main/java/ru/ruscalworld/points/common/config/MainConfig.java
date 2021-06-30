@@ -35,6 +35,10 @@ public class MainConfig {
         return new SimpleDateFormat(format, this.getLocale());
     }
 
+    public String getMapName(String worldName) {
+        return this.getProperties().getProperty("maps." + worldName, worldName);
+    }
+
     public Properties getProperties() {
         return properties;
     }
