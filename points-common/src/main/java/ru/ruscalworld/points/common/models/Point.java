@@ -121,11 +121,12 @@ public class Point extends DefaultModel {
     }
 
     public Component getDisplayName(Style contrast) {
+        Points points = Points.getInstance();
         TextComponent br = Component.text("\n");
-        PlayerManager playerManager = Points.getInstance().getPlayerManager();
+        PlayerManager playerManager = points.getPlayerManager();
         OfflinePlayer owner = playerManager.getOfflinePlayer(this.getOwnerID());
         String ownerName = owner != null ? owner.getName() : "Unknown";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = points.getMainConfig().getDateFormat();
 
         TranslatableComponent hint = Component.translatable(
                 "point.info.name", Styles.main(),

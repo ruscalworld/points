@@ -3,6 +3,8 @@ package ru.ruscalworld.points.common.config;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Properties;
 
 public class MainConfig {
@@ -22,6 +24,15 @@ public class MainConfig {
 
     public String getLanguage() {
         return this.getProperties().getProperty("language", "en");
+    }
+
+    public Locale getLocale() {
+        return new Locale(this.getLanguage());
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        String format = this.getProperties().getProperty("date-format", "dd MMM yyyy HH:mm:ss");
+        return new SimpleDateFormat(format, this.getLocale());
     }
 
     public Properties getProperties() {
