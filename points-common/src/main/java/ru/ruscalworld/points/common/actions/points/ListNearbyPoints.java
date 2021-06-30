@@ -47,7 +47,7 @@ public class ListNearbyPoints extends PlayerAction {
             count++;
             component = component.append(Component.text("\n")).append(Component.translatable(
                     "point.nearby.entry", Styles.main(),
-                    Component.text(point.getName(), Styles.contrast()),
+                    point.getDisplayName(Styles.contrast()),
                     Component.text(Math.round(point.getLocation().getDistance(player.getLocation())) + "m", Styles.contrast())
             ));
         }

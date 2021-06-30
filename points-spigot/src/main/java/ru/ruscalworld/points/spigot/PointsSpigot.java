@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.ruscalworld.points.spigot.commands.*;
 import ru.ruscalworld.points.common.Points;
 import ru.ruscalworld.points.spigot.impl.BukkitActionDispatcher;
+import ru.ruscalworld.points.spigot.impl.BukkitPlayerManager;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public final class PointsSpigot extends JavaPlugin {
     @Override
     public void onEnable() {
         this.setAdventure(BukkitAudiences.create(this));
-        Points points = new Points(this.getDataFolder().toPath(), new BukkitActionDispatcher());
+        Points points = new Points(this.getDataFolder().toPath(), new BukkitPlayerManager(), new BukkitActionDispatcher());
         if (!points.initialize()) this.setEnabled(false);
 
         PluginCommand point = this.getCommand("point");

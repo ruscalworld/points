@@ -5,6 +5,7 @@ import net.kyori.adventure.translation.GlobalTranslator;
 import ru.ruscalworld.points.common.config.MainConfig;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
+import ru.ruscalworld.points.common.core.PlayerManager;
 import ru.ruscalworld.points.common.core.WorldMap;
 import ru.ruscalworld.points.common.maps.BlueMap;
 import ru.ruscalworld.points.common.maps.NullWorldMap;
@@ -27,9 +28,11 @@ public class Points {
     private WorldMap worldMap;
     private final Storage storage;
     private final MainConfig mainConfig;
+    private final PlayerManager playerManager;
     private final BiConsumer<Action, CommandExecutor> actionDispatcher;
 
-    public Points(Path dataPath, BiConsumer<Action, CommandExecutor> actionDispatcher) {
+    public Points(Path dataPath, PlayerManager playerManager, BiConsumer<Action, CommandExecutor> actionDispatcher) {
+        this.playerManager = playerManager;
         this.actionDispatcher = actionDispatcher;
         this.mainConfig = new MainConfig(dataPath);
 
@@ -101,5 +104,9 @@ public class Points {
 
     public void setWorldMap(WorldMap worldMap) {
         this.worldMap = worldMap;
+    }
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
     }
 }

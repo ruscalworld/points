@@ -1,18 +1,26 @@
 package ru.ruscalworld.points.common.models;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.TranslatableComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.Style;
 import org.jetbrains.annotations.NotNull;
 import ru.ruscalworld.points.common.Points;
-import ru.ruscalworld.points.common.core.CommandExecutor;
-import ru.ruscalworld.points.common.core.Player;
-import ru.ruscalworld.points.common.core.WorldMap;
+import ru.ruscalworld.points.common.core.*;
 import ru.ruscalworld.points.common.util.Location;
 import ru.ruscalworld.points.common.util.Slug;
+import ru.ruscalworld.points.common.util.Styles;
 import ru.ruscalworld.storagelib.DefaultModel;
 import ru.ruscalworld.storagelib.annotations.DefaultGenerated;
 import ru.ruscalworld.storagelib.annotations.Model;
 import ru.ruscalworld.storagelib.annotations.Property;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.UUID;
 
 @Model(table = "points")
@@ -110,6 +118,33 @@ public class Point extends DefaultModel {
     public void deleteMarker() {
         WorldMap map = Points.getInstance().getWorldMap();
         map.removeMarker(this);
+    }
+
+    public Component getDisplayName(Style contrast) {
+        TextComponent br = Component.text("\n");
+        PlayerManager playerManager = Points.getInstance().getPlayerManager();
+        OfflinePlayer owner = playerManager.getOfflinePlayer(this.getOwnerID());
+        String ownerName = owner != null ? owner.getName() : "Unknown";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+
+        TranslatableComponent hint = Component.translatable(
+                "point.info.name", Styles.main(),
+                Component.text(this.getName(), Styles.contrast())
+        ).append(br).append(Component.translatable(
+                "point.info.owner", Styles.main(),
+                Component.text(ownerName, Styles.contrast())
+        )).append(br).append(Component.translatable(
+                "point.info.location", Styles.main(),
+                this.getLocation().getCoordinatesComponent(Styles.contrast()),
+                Component.text(this.getLocation().getWorldName(), Styles.contrast())
+        )).append(br).append(Component.translatable(
+                "point.info.created", Styles.main(),
+                Component.text(dateFormat.format(this.getCreatedAt()), Styles.contrast())
+        ));
+
+        return Component.text(this.getName(), contrast)
+                .hoverEvent(HoverEvent.showText(hint))
+                .clickEvent(ClickEvent.runCommand("where " + this.getName()));
     }
 
     public @NotNull String getName() {

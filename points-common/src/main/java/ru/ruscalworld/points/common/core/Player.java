@@ -5,7 +5,6 @@ import ru.ruscalworld.points.common.util.Location;
 
 import java.util.UUID;
 
-public interface Player extends CommandExecutor {
-    @NotNull UUID getUUID();
+public interface Player extends OfflinePlayer {
     @NotNull Location getLocation();
 }
