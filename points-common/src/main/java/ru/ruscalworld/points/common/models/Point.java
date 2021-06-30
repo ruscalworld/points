@@ -144,7 +144,7 @@ public class Point extends DefaultModel {
 
         return Component.text(this.getName(), contrast)
                 .hoverEvent(HoverEvent.showText(hint))
-                .clickEvent(ClickEvent.runCommand("where " + this.getName()));
+                .clickEvent(ClickEvent.runCommand("/where " + this.getName()));
     }
 
     public @NotNull String getName() {
