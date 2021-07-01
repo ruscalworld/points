@@ -31,7 +31,7 @@ public class MainConfig {
     }
 
     public SimpleDateFormat getDateFormat() {
-        String format = this.getProperties().getProperty("date-format", "dd MMM yyyy HH:mm:ss");
+        String format = this.getProperties().getProperty("date-format", "dd MMM yyyy HH:mm:ss zzz");
         return new SimpleDateFormat(format, this.getLocale());
     }
 
