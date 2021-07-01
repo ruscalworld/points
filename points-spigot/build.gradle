@@ -35,7 +35,8 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     from(sourceSets.main.resources.srcDirs) {
-        expand 'project': project
+        var version = project.parent.version
+        expand 'version': version
     }
 }
 
