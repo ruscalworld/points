@@ -30,8 +30,11 @@ public class ListNearbyPoints extends PlayerAction {
 
         try {
             points.addAll(storage.findAll(Point.class, Condition.and(
-                    Condition.and(Comparison.lessThan("x", location.getX() + SEARCH_RADIUS), Comparison.biggerThan("x", location.getX() - SEARCH_RADIUS)),
-                    Condition.and(Comparison.lessThan("z", location.getZ() + SEARCH_RADIUS), Comparison.biggerThan("z", location.getZ() - SEARCH_RADIUS))
+                    Condition.and(
+                            Condition.and(Comparison.lessThan("x", location.getX() + SEARCH_RADIUS), Comparison.biggerThan("x", location.getX() - SEARCH_RADIUS)),
+                            Condition.and(Comparison.lessThan("z", location.getZ() + SEARCH_RADIUS), Comparison.biggerThan("z", location.getZ() - SEARCH_RADIUS))
+                    ),
+                    Comparison.equal("world", location.getWorldName())
             )));
         } catch (Exception exception) {
             exception.printStackTrace();
