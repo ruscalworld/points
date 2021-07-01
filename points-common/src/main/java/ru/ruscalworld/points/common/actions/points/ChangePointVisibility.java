@@ -35,7 +35,7 @@ public class ChangePointVisibility extends PointAction {
 
         return Component.translatable(
                 point.isHidden() ? "point.hidden.on" : "point.hidden.off", Styles.main(),
-                Component.text(point.getName(), Styles.contrast())
+                point.getDisplayName(Styles.contrast())
         );
     }
 

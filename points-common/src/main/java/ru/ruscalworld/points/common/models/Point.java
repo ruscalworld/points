@@ -121,6 +121,14 @@ public class Point extends DefaultModel {
     }
 
     public Component getDisplayName(Style contrast) {
+        return this.getDisplay(this.getName(), contrast);
+    }
+
+    public Component getDisplaySlug(Style contrast) {
+        return this.getDisplay(this.getSlug(), contrast);
+    }
+
+    private Component getDisplay(String text, Style contrast) {
         Points points = Points.getInstance();
         TextComponent br = Component.text("\n");
         PlayerManager playerManager = points.getPlayerManager();
@@ -143,7 +151,7 @@ public class Point extends DefaultModel {
                 Component.text(dateFormat.format(this.getCreatedAt()), Styles.contrast())
         ));
 
-        return Component.text(this.getName(), contrast)
+        return Component.text(text, contrast)
                 .hoverEvent(HoverEvent.showText(hint))
                 .clickEvent(ClickEvent.runCommand("/where " + this.getName()));
     }

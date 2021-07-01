@@ -26,7 +26,7 @@ public class ViewPoint extends PointAction {
 
         return Component.translatable(
                 "point.view", Styles.main(),
-                Component.text(point.getName(), Styles.contrast()),
+                point.getDisplaySlug(Styles.contrast()),
                 point.getLocation().getCoordinatesComponent(Styles.contrast()),
                 Component.text(point.getLocation().getWorldName(), Styles.contrast())
         );

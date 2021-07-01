@@ -40,7 +40,7 @@ public class DeletePoint extends PointAction {
 
         return Component.translatable(
                 "point.delete.success", Styles.main(),
-                Component.text(point.getName(), Styles.contrast())
+                point.getDisplayName(Styles.contrast())
         );
     }
 }

@@ -59,7 +59,7 @@ public class CreatePoint implements Action {
 
         return Component.translatable(
                 "point.create.success", Styles.main(),
-                Component.text(point.getSlug(), Styles.contrast()),
+                point.getDisplaySlug(Styles.contrast()),
                 Components.button(
                         Component.translatable("interactions.make-private"),
                         Component.translatable("hint.private"),

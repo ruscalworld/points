@@ -35,7 +35,7 @@ public class ChangePointPrivacy extends PointAction {
 
         return Component.translatable(
                 point.isPrivate() ? "point.private.on" : "point.private.off", Styles.main(),
-                Component.text(point.getName(), Styles.contrast())
+                point.getDisplayName(Styles.contrast())
         );
     }
 
