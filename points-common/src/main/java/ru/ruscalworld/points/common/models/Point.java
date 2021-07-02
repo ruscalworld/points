@@ -140,6 +140,9 @@ public class Point extends DefaultModel {
                 "point.info.name", Styles.main(),
                 Component.text(this.getName(), Styles.contrast())
         ).append(br).append(Component.translatable(
+                "point.info.slug", Styles.main(),
+                Component.text(this.getSlug(), Styles.contrast())
+        )).append(br).append(Component.translatable(
                 "point.info.owner", Styles.main(),
                 Component.text(ownerName, Styles.contrast())
         )).append(br).append(Component.translatable(
