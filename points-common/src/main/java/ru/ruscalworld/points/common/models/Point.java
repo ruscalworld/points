@@ -20,7 +20,11 @@ import ru.ruscalworld.storagelib.annotations.Property;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @Model(table = "points")
@@ -134,7 +138,8 @@ public class Point extends DefaultModel {
         PlayerManager playerManager = points.getPlayerManager();
         OfflinePlayer owner = playerManager.getOfflinePlayer(this.getOwnerID());
         String ownerName = owner != null ? owner.getName() : "Unknown";
-        SimpleDateFormat dateFormat = points.getMainConfig().getDateFormat();
+        DateTimeFormatter dateFormat = points.getMainConfig().getDateFormat();
+        ZonedDateTime createdAt = this.getCreatedAt().toInstant().atZone(ZoneId.systemDefault());
 
         TranslatableComponent hint = Component.translatable(
                 "point.info.name", Styles.main(),
@@ -151,7 +156,7 @@ public class Point extends DefaultModel {
                 Component.text(this.getLocation().getWorldName(), Styles.contrast())
         )).append(br).append(Component.translatable(
                 "point.info.created", Styles.main(),
-                Component.text(dateFormat.format(this.getCreatedAt()), Styles.contrast())
+                Component.text(dateFormat.format(createdAt), Styles.contrast())
         ));
 
         return Component.text(text, contrast)
@@ -192,7 +197,7 @@ public class Point extends DefaultModel {
         isHidden = hidden;
     }
 
-    public @NotNull Timestamp getCreatedAt() {
-        return createdAt;
+    public @NotNull OffsetDateTime getCreatedAt() {
+        return OffsetDateTime.of(this.createdAt.toLocalDateTime(), ZoneOffset.UTC);
     }
 }

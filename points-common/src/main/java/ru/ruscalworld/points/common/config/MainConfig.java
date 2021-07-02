@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -30,9 +31,9 @@ public class MainConfig {
         return new Locale(this.getLanguage());
     }
 
-    public SimpleDateFormat getDateFormat() {
+    public DateTimeFormatter getDateFormat() {
         String format = this.getProperties().getProperty("date-format", "dd MMM yyyy HH:mm:ss zzz");
-        return new SimpleDateFormat(format, this.getLocale());
+        return DateTimeFormatter.ofPattern(format, this.getLocale());
     }
 
     public String getMapName(String worldName) {
