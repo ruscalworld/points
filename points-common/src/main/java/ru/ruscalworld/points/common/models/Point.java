@@ -106,7 +106,8 @@ public class Point extends DefaultModel {
     public void createMarker() {
         if (this.isHidden()) return;
         WorldMap worldMap = Points.getInstance().getWorldMap();
-        worldMap.addMarker(this);
+        if (!worldMap.addMarker(this))
+            Points.getLogger().warn("Marker for point \"{}\" was not created", this.getName());
     }
 
     public void updateMarker() {
@@ -116,12 +117,14 @@ public class Point extends DefaultModel {
         }
 
         WorldMap map = Points.getInstance().getWorldMap();
-        map.updateMarker(this);
+        if (!map.updateMarker(this))
+            Points.getLogger().warn("Marker for point \"{}\" was not updated", this.getName());
     }
 
     public void deleteMarker() {
         WorldMap map = Points.getInstance().getWorldMap();
-        map.removeMarker(this);
+        if (!map.removeMarker(this))
+            Points.getLogger().warn("Marker for point \"{}\" was not deleted", this.getName());
     }
 
     public Component getDisplayName(Style contrast) {

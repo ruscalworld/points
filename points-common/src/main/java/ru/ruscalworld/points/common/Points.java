@@ -2,6 +2,8 @@ package ru.ruscalworld.points.common;
 
 import de.bluecolored.bluemap.api.BlueMapAPI;
 import net.kyori.adventure.translation.GlobalTranslator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.ruscalworld.points.common.config.MainConfig;
 import ru.ruscalworld.points.common.core.Action;
 import ru.ruscalworld.points.common.core.CommandExecutor;
@@ -23,6 +25,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 public class Points {
+    private static final Logger logger = LoggerFactory.getLogger("Points");
     private static Points instance;
 
     private WorldMap worldMap;
@@ -86,6 +89,10 @@ public class Points {
         return instance;
     }
 
+    public static Logger getLogger() {
+        return logger;
+    }
+
     public Storage getStorage() {
         return storage;
     }
@@ -103,6 +110,7 @@ public class Points {
     }
 
     public void setWorldMap(WorldMap worldMap) {
+        logger.info("Using {} as world map", worldMap.getClass().getSimpleName());
         this.worldMap = worldMap;
     }
 

@@ -41,8 +41,9 @@ subprojects {
     }
 
     dependencies {
-        implementation "net.kyori:adventure-api:4.8.0"
-        implementation "ru.ruscalworld:storagelib:1.2.0"
+        implementation 'net.kyori:adventure-api:4.8.0'
+        implementation 'ru.ruscalworld:storagelib:1.2.0'
+        implementation 'org.slf4j:slf4j-api:1.7.32'
         implementation 'com.github.BlueMap-Minecraft:BlueMapAPI:v1.7.0'
     }
 }
