@@ -2,7 +2,7 @@ package ru.ruscalworld.points.spigot;
 
 import me.lucko.commodore.Commodore;
 import me.lucko.commodore.CommodoreProvider;
-import me.lucko.commodore.file.CommodoreFileFormat;
+import me.lucko.commodore.file.CommodoreFileReader;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -52,7 +52,7 @@ public final class PointsSpigot extends JavaPlugin {
             Commodore commodore = CommodoreProvider.getCommodore(this);
 
             try {
-                commodore.register(point, CommodoreFileFormat.parse(this.getResource("commands/point.commodore")));
+                commodore.register(point, CommodoreFileReader.INSTANCE.parse(this.getResource("commands/point.commodore")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
